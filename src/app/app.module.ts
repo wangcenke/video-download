@@ -22,6 +22,7 @@ import { AppState } from "./store";
 import { setToken, setUserInfo } from "./store/auth/auth.actions";
 import { ChatModule } from "./pages/chat/chat.module";
 import { IMqttServiceOptions, MqttModule } from "ngx-mqtt";
+import { AuthService } from "./serivces/auth.service";
 
 const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   hostname: environment.mqtt.server,
@@ -60,22 +61,24 @@ const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   providers: [StorageService, httpInterceptorProviders, {
     provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
     useValue: { duration: 3000, verticalPosition: "top" }
-  }],
+  }, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(
     private local: StorageService,
+    private authService: AuthService,
     private readonly store: Store<AppState>
   ) {
     const token = this.local.getToken();
     if (token !== "") {
       this.store.dispatch(setToken({ token: token }));
-    }
-    // TODO 换成请求，能判断是否登录超时
-    const userinfo = this.local.get("userinfo");
-    if (userinfo) {
-      this.store.dispatch(setUserInfo({ userinfo: userinfo }));
+      this.authService.getUserinfo().subscribe(info => {
+        if (info.code === 0 && info.data) {
+          this.store.dispatch(setUserInfo({userinfo: info.data}))
+          this.local.set("userinfo", info.data);
+        }
+      });
     }
   }
 }

@@ -6,15 +6,14 @@ import {
   HttpInterceptor, HttpErrorResponse, HttpResponse
 } from "@angular/common/http";
 import { catchError, Observable, tap, throwError } from "rxjs";
+import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
-
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
 
-  constructor(private _snackBar: MatSnackBar) {
+  constructor(private _snackBar: MatSnackBar, private router: Router) {
   }
 
-  // TODO 401返回登录页
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       tap((event) => {
@@ -25,7 +24,13 @@ export class ResponseInterceptor implements HttpInterceptor {
         }
       }),
       catchError((err: HttpErrorResponse) => {
-        this._snackBar.open(err.statusText, "关闭");
+
+          if (err.status === 401) {
+            this.router.navigate(["/login"]).then();
+            this._snackBar.open("登录过期", "关闭");
+          } else {
+            this._snackBar.open(err.statusText, "关闭");
+          }
           return throwError(() => err);
         }
       )
