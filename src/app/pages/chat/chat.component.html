@@ -1,0 +1,10 @@
+<div class="chat-container">
+  <div class="msg-wrap" id="msg-list">
+    <app-msg-item *ngFor="let item of msgList" [msg]="item"></app-msg-item>
+  </div>
+  <div class="input-wrap">
+<!--    <span class="new-msg" matBadge="4" matBadgeOverlap="false">有新消息</span>-->
+    <mat-divider></mat-divider>
+    <app-input-field (send)="sendFn($event)"></app-input-field>
+  </div>
+</div>

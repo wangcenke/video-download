@@ -1,0 +1,8 @@
+<div class="input-container">
+  <textarea autofocus class="input-size"
+            style="resize: none"
+            [(ngModel)]="_value"
+            (keyup.control.enter)="breakLine($event);$event.stopPropagation();"
+            (keyup.enter)="sendMsg($event);$event.stopPropagation();"
+  ></textarea>
+</div>

@@ -1,0 +1,9 @@
+.auth-wrap {
+  width: 100vw;
+  height: 100vh;
+  @apply flex justify-center items-center;
+  .content {
+    @apply w-1/3;
+  }
+}
+

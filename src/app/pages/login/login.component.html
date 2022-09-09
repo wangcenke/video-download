@@ -1,0 +1,28 @@
+<div class="auth-wrap">
+  <div class="content">
+    <div class="p-2">
+      <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label>用户名</mat-label>
+          <input matInput placeholder="请输入用户名" formControlName="username" required>
+        </mat-form-field>
+        <!--        <mat-form-field class="w-full" appearance="outline">-->
+        <!--          <mat-label>邮箱</mat-label>-->
+        <!--          <input matInput placeholder="请输入邮箱" formControlName="email" required>-->
+        <!--          <mat-error>{{getErrorMessage()}}</mat-error>-->
+        <!--        </mat-form-field>-->
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label>密码</mat-label>
+          <input matInput placeholder="请输入密码" [type]="hide ? 'password' : 'text'" formControlName="passwd"
+                 required>
+          <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <button class="w-full" mat-flat-button color="primary" type="submit">提交</button>
+      </form>
+<!--      <div>{{token$ | async}}</div>-->
+    </div>
+  </div>
+</div>
