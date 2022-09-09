@@ -9,6 +9,7 @@ import { Userinfo } from "../../types/auth";
 import { NotificationService } from "../../serivces/notification.service";
 import { LogService } from "../../serivces/log.service";
 
+
 @Component({
   selector: "app-chat",
   templateUrl: "./chat.component.html",
