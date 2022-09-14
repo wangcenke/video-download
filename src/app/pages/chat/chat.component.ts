@@ -42,6 +42,7 @@ export class ChatComponent implements OnInit {
         this.notification.notification(m.content, m.username).then();
       }
       this.msgList.push(item);
+      this.log.writeRecord(data.payload.toString()).then();
     });
   }
 
@@ -76,7 +77,7 @@ export class ChatComponent implements OnInit {
     });
     this.subscribeToTopic();
     this.scrollToBottom();
-    this.log.getHomeDir().then();
+    this.log.init(this.chatMqtt.topicName).then();
   }
 
   ngOnDestroy(): void {
