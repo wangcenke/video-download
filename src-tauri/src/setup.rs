@@ -2,8 +2,14 @@ use tauri::{App, Manager};
 use window_vibrancy::{self, NSVisualEffectMaterial};
 
 /// setup
-pub fn init(app: &mut App) -> std::result::Result<(), Box<dyn std::error::Error>> {
+pub fn init(app: &mut App) -> Result<(), Box<dyn std::error::Error>> {
     let win = app.get_window("main").unwrap();
+
+    // debug 开发运行
+    #[cfg(debug_assertions)]
+    {
+        win.open_devtools();
+    }
 
     // 仅在 macOS 下执行
     #[cfg(target_os = "macos")]

@@ -1,6 +1,6 @@
 {
   "name": "ng-hi",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -24,9 +24,11 @@
     "@angular/router": "^14.2.0",
     "@ngrx/store": "^14.3.0",
     "@tauri-apps/api": "^1.0.2",
+    "dayjs": "^1.11.5",
     "mqtt": "^4.3.7",
     "ngx-mqtt": "^9.0.5",
     "rxjs": "~7.4.0",
+    "tauri-plugin-log-api": "github:tauri-apps/tauri-plugin-log#dev",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
