@@ -9,9 +9,10 @@ import { InputFieldComponent } from './components/input-field/input-field.compon
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatBadgeModule } from "@angular/material/badge";
+import { LoadMoreComponent } from './components/load-more/load-more.component';
 
 @NgModule({
-  declarations: [ChatComponent, MsgItemComponent, InputFieldComponent],
+  declarations: [ChatComponent, MsgItemComponent, InputFieldComponent, LoadMoreComponent],
   imports: [
     CommonModule,
     ChatRoutingModule,

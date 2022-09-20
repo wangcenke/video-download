@@ -27,3 +27,8 @@ pub fn record_init(log_path: String, filename: String) {
     }
   };
 }
+
+#[command]
+pub fn path_exists_js(path: &str) -> bool {
+  path_exists(path)
+}

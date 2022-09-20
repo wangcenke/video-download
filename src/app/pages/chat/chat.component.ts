@@ -7,7 +7,7 @@ import { Store } from "@ngrx/store";
 import { selectUserinfo, AppState } from "../../store";
 import { Userinfo } from "../../types/auth";
 import { NotificationService } from "../../serivces/notification.service";
-import { LogService } from "../../serivces/log.service";
+import { RecordService } from "../../serivces/record.service";
 
 
 @Component({
@@ -19,15 +19,17 @@ export class ChatComponent implements OnInit {
   subscription: Subscription | undefined;
   msgList: Msg[] = [];
   userinfo: Userinfo | null;
+  loadCount: number;
 
   constructor(
     private readonly chatMqtt: ChatMqttService,
     private readonly store: Store<AppState>,
     private notification: NotificationService,
     private el: ElementRef,
-    private log: LogService,
+    private record: RecordService
   ) {
     this.userinfo = null;
+    this.loadCount = 0;
   }
 
 
@@ -42,13 +44,14 @@ export class ChatComponent implements OnInit {
         this.notification.notification(m.content, m.username).then();
       }
       this.msgList.push(item);
-      this.log.writeRecord(data.payload.toString()).then();
+      this.record.writeRecord(data.payload.toString()).then();
+      this.el.nativeElement.querySelector("#msg-list").scrollTop = 20000;
     });
   }
 
   scrollToBottom(): void {
     try {
-      this.el.nativeElement.querySelector("#msg-list").scrollTop += this.el.nativeElement.querySelector("#msg-list").scrollHeight + 200;
+      this.el.nativeElement.querySelector("#msg-list").scrollTop += this.el.nativeElement.querySelector("#msg-list").scrollHeight;
     } catch (e) {
       console.log(e);
     }
@@ -66,9 +69,16 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  async loadRecord() {
+    const res = await this.record.readRecord();
+    this.msgList.unshift(...res);
+    this.loadCount = res.length;
+    // console.log(res);
+    this.el.nativeElement.querySelector("#msg-list").scrollTop = 600;
+  }
 
   ngAfterViewChecked(): void {
-    this.scrollToBottom();
+      this.scrollToBottom();
   }
 
   ngOnInit(): void {
@@ -77,7 +87,10 @@ export class ChatComponent implements OnInit {
     });
     this.subscribeToTopic();
     this.scrollToBottom();
-    this.log.init(this.chatMqtt.topicName).then();
+    this.record.init(this.chatMqtt.topicName).then(() => {
+      // const current = this.time.getToday();
+      this.loadRecord();
+    });
   }
 
   ngOnDestroy(): void {
