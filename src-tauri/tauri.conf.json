@@ -3,10 +3,10 @@
     "beforeBuildCommand": "yarn build",
     "beforeDevCommand": "yarn start",
     "devPath": "http://localhost:4200",
-    "distDir": "../dist/ng-hi"
+    "distDir": "../dist/video-download"
   },
   "package": {
-    "productName": "ng-hi",
+    "productName": "video-download",
     "version": "../package.json"
   },
   "tauri": {
