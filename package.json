@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "tauri": "cargo tauri dev",
-    "tauri:build": "cargo tauri build --target=x86_64-apple-darwin"
+    "build:mac": "cargo tauri build --target=x86_64-apple-darwin",
+    "build:win": "cargo tauri build --target i686-pc-windows-msvc"
   },
   "private": true,
   "dependencies": {
