@@ -4,10 +4,10 @@
 )]
 use tauri::generate_handler;
 use tauri_plugin_log::{LogTarget, LoggerBuilder};
-mod util;
-mod setup;
 mod command;
-use command::{write_record, record_init, path_exists_js};
+mod setup;
+mod util;
+use command::{open_main_window, path_exists_js, record_init, write_record};
 
 fn main() {
     tauri::Builder::default()
@@ -17,7 +17,12 @@ fn main() {
                 .targets([LogTarget::LogDir, LogTarget::Stdout, LogTarget::Webview])
                 .build(),
         )
-        .invoke_handler(generate_handler![write_record, record_init, path_exists_js])
+        .invoke_handler(generate_handler![
+            write_record,
+            record_init,
+            path_exists_js,
+            open_main_window
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

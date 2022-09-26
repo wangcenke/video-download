@@ -4,7 +4,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { LoginComponent } from "./pages/login/login.component";
 
 export const routes: Routes = [
-  { path: "", redirectTo: "/chat", pathMatch: "full" },
+  { path: "", redirectTo: "/main", pathMatch: "full" },
   { title: "登录", path: "login", component: LoginComponent },
 ];
 

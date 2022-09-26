@@ -1,9 +1,0 @@
-<div class="chat-container">
-  <div class="msg-wrap" id="msg-list">
-    <app-msg-item *ngFor="let item of msgList" [msg]="item"></app-msg-item>
-  </div>
-  <div class="input-wrap">
-    <mat-divider></mat-divider>
-    <app-input-field (send)="sendFn($event)"></app-input-field>
-  </div>
-</div>

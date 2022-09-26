@@ -65,9 +65,23 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "video download",
+        "title": "main",
         "width": 800,
-        "transparent": true
+        "transparent": true,
+        "label": "main",
+        "url": "/main",
+        "visible": true
+      },
+      {
+        "fullscreen": false,
+        "height": 400,
+        "resizable": false,
+        "title": "login",
+        "width": 300,
+        "transparent": true,
+        "label": "login",
+        "url": "/login",
+        "visible": false
       }
     ]
   }

@@ -20,9 +20,10 @@ import { authReducer } from "./store/auth/auth.reducer";
 import { Store } from "@ngrx/store";
 import { AppState } from "./store";
 import { setToken, setUserInfo } from "./store/auth/auth.actions";
-import { ChatModule } from "./pages/chat/chat.module";
+// import { ChatModule } from "./pages/chat/chat.module";
 import { IMqttServiceOptions, MqttModule } from "ngx-mqtt";
 import { AuthService } from "./serivces/auth.service";
+import { MainModule } from "./pages/main/main/main.module";
 
 const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   hostname: environment.mqtt.server,
@@ -39,7 +40,8 @@ const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   imports: [
     BrowserModule,
     HttpClientModule,
-    ChatModule,
+    // ChatModule,
+    MainModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
@@ -73,12 +75,12 @@ export class AppModule {
     const token = this.local.getToken();
     if (token !== "") {
       this.store.dispatch(setToken({ token: token }));
-      this.authService.getUserinfo().subscribe(info => {
-        if (info.code === 0 && info.data) {
-          this.store.dispatch(setUserInfo({userinfo: info.data}))
-          this.local.set("userinfo", info.data);
-        }
-      });
+      // this.authService.getUserinfo().subscribe(info => {
+      //   if (info.code === 0 && info.data) {
+      //     this.store.dispatch(setUserInfo({userinfo: info.data}))
+      //     this.local.set("userinfo", info.data);
+      //   }
+      // });
     }
   }
 }
